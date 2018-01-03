@@ -1,9 +1,5 @@
 #include <jni.h>
-#include <string>
-
-#include "md5.h"
 #include "my_utils.h"
-#include <string.h>
 
 
 extern "C" {
