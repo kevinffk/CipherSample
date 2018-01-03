@@ -12,9 +12,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Example of a call to a native method
         TextView tv = (TextView) findViewById(R.id.sample_text);
-        tv.setText(CipherNativeLib.cryptMd5("admin"));
+        tv.setText(CipherNativeLib.cryptMd5By32("admin", true)
+                + "\n"
+                + CipherNativeLib.cryptMd5By32("admin", false)
+                + "\n"
+                + CipherNativeLib.cryptMd5By16("admin", true)
+                + "\n"
+                + CipherNativeLib.cryptMd5By16("admin", false));
     }
 
 

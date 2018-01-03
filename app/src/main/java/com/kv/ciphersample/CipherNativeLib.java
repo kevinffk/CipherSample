@@ -13,8 +13,7 @@ public class CipherNativeLib {
         System.loadLibrary("cipher_native_lib");
     }
 
+    public static native String cryptMd5By32(String source, boolean isUpper);
 
-    public static native String stringFromJNI();
-
-    public static native String cryptMd5(String source);
+    public static native String cryptMd5By16(String source, boolean isUpper);
 }
