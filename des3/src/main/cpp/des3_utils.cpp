@@ -67,6 +67,11 @@ void DesEncode(char key[8], char Msg[8], char MsgHexCode[16]) {
     PlayDes(MsgHexCode,Msg);
 }
 
+void DesEncodeHex(char key[16], char Msg[16], char MsgHexCode[16]) {
+    SetKeyHex(key);
+    PlayDesHex(MsgHexCode,Msg);
+}
+
 void DesDecode(char key[8], char MsgHexCode[16], char Msg[8]) {
     SetKey(key);
     KickDes(Msg,MsgHexCode);
@@ -262,6 +267,24 @@ void SetKey(char KeyIn[8])               // 设置密钥 获取子密钥Ki
     }
 }
 
+void SetKeyHex(char KeyIn[16])               // 设置密钥 获取子密钥Ki
+{
+    int i=0;
+    static bool KeyBit[64]={0};                // 密钥二进制存储空间
+    static bool *KiL=&KeyBit[0],*KiR=&KeyBit[28];  // 前28,后28共56
+
+    HexToBit(KeyBit,KeyIn,64);          // 把密钥转为二进制存入KeyBit
+    TablePermute(KeyBit,KeyBit,PC1_Table,56);      // PC1表置换 56次
+    for(i=0;i<16;i++)
+    {
+        LoopMove(KiL,28,Move_Table[i]);       // 前28位左移
+        LoopMove(KiR,28,Move_Table[i]);          // 后28位左移
+        TablePermute(SubKey[i],KeyBit,PC2_Table,48);
+        // 二维数组 SubKey[i]为每一行起始地址
+        // 每移一次位进行PC2置换得 Ki 48位
+    }
+}
+
 void PlayDes(char MesOut[8],char MesIn[8])  // 执行DES加密
 {                                           // 字节输入 Bin运算 Hex输出
     int i=0;
@@ -269,6 +292,25 @@ void PlayDes(char MesOut[8],char MesIn[8])  // 执行DES加密
     static bool Temp[32]={0};
     static bool *MiL=&MesBit[0],*MiR=&MesBit[32]; // 前32位 后32位
     ByteToBit(MesBit,MesIn,64);                 // 把明文换成二进制存入MesBit
+    TablePermute(MesBit,MesBit,IP_Table,64);    // IP置换
+    for(i=0;i<16;i++)                       // 迭代16次
+    {
+        BitsCopy(Temp,MiR,32);            // 临时存储
+        F_Change(MiR,SubKey[i]);           // F函数变换
+        Xor(MiR,MiL,32);                  // 得到Ri
+        BitsCopy(MiL,Temp,32);            // 得到Li
+    }
+    TablePermute(MesBit,MesBit,IPR_Table,64);
+    BitToHex(MesOut,MesBit,64);
+}
+
+void PlayDesHex(char MesOut[16],char MesIn[16])  // 执行DES加密
+{                                           // 字节输入 Bin运算 Hex输出
+    int i=0;
+    static bool MesBit[64]={0};        // 明文二进制存储空间 64位
+    static bool Temp[32]={0};
+    static bool *MiL=&MesBit[0],*MiR=&MesBit[32]; // 前32位 后32位
+    HexToBit(MesBit,MesIn,64);
     TablePermute(MesBit,MesBit,IP_Table,64);    // IP置换
     for(i=0;i<16;i++)                       // 迭代16次
     {

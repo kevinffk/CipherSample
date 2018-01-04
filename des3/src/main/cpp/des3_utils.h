@@ -3,6 +3,9 @@
 void DesEncode(char key[8], char MesIn[8], char MesOut[8]);
 void DesDecode(char key[8], char MesIn[8], char MesOut[8]);
 
+void DesEncodeHex(char key[16], char MesIn[16], char MesOut[16]);
+void DesDecodeHex(char key[16], char MesIn[16], char MesOut[16]);
+
 void ByteToHexStr(const unsigned char* source, char* dest, int sourceLen, int zeroIsUpper);
 void BitsCopy(bool *DatOut,bool *DatIn,int Len);  // 数组复制
 
@@ -22,3 +25,7 @@ void F_Change(bool DatIn[32],bool DatKi[48]);    // F函数
 void SetKey(char KeyIn[8]);                         // 设置密钥
 void PlayDes(char MesOut[8],char MesIn[8]);       // 执行DES加密
 void KickDes(char MesOut[8],char MesIn[8]);             // 执行DES解密
+
+void SetKeyHex(char KeyIn[16]);
+void PlayDesHex(char MesOut[16],char MesIn[16]);
+void KickDesHex(char MesOut[16],char MesIn[16]);
