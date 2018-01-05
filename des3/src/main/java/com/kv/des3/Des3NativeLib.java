@@ -13,4 +13,6 @@ public class Des3NativeLib {
     }
 
     public static native String getEncodeDesHexStr(String source, String key);
+
+    public static native void testByte(byte[] myBytes);
 }

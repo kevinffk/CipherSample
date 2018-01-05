@@ -62,7 +62,7 @@
 ///*------------------------------------------------*/
 //}
 
-void DesEncode(char key[8], char Msg[8], char MsgHexCode[16]) {
+void DesEncode(char key[8], char Msg[8], char MsgHexCode[8]) {
     SetKey(key);
     PlayDes(MsgHexCode,Msg);
 }
@@ -340,4 +340,17 @@ void KickDes(char MesOut[8],char MesIn[8])       // 执行DES解密
     }
     TablePermute(MesBit,MesBit,IPR_Table,64);
     BitToByte(MesOut,MesBit,64);
+}
+
+int hex2byte(char *dst, char *src) {
+    while(*src) {
+        if(' ' == *src) {
+            src++;
+            continue;
+        }
+        sscanf(src, "%02X", dst);
+        src += 2;
+        dst++;
+    }
+    return 0;
 }

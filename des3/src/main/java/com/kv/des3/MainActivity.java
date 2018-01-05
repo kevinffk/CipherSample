@@ -2,7 +2,7 @@ package com.kv.des3;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.widget.TextView;
 
 import java.security.SecureRandom;
 
@@ -18,8 +18,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        TextView tv1 = findViewById(R.id.tv1);
-//        tv1.setText(Des3NativeLib.getEncodeDesHexStr("1111111111111111", "1111111111111111"));
+        TextView tv1 = findViewById(R.id.tv1);
+        byte[] bytes = {0x10,0x11,0x12,0x13, (byte) 0xff, (byte) 128};
+        Des3NativeLib.testByte(bytes);
+//        tv1.setText(Des3NativeLib.getEncodeDesHexStr("10111213ff80", "1111111111111111"));
+        tv1.setText(Des3NativeLib.getEncodeDesHexStr("1111111111111111", "1111111111111111"));
 //
 //        TextView tv2 = findViewById(R.id.tv2);
 //        tv2.setText(encryptDes("1111111111111111", "1111111111111111"));
@@ -33,23 +36,23 @@ public class MainActivity extends AppCompatActivity {
 //        Log.e("xx", "t1=" + encryptDes("1111111111111111", "1111111111111111"));
 //        Log.e("xx", "t2=" + bytesToHexString(coB));
 
-        String inStr = "1111111111111111";
-        String keyStr = "1111111111111111";
-
-        byte [] inByte = hexStringToBytes(inStr);
-        byte [] keyByte = hexStringToBytes(keyStr);
-
-        Log.e("xx", " inde=" + inByte.length + " key=" + keyByte.length);
-
-        byte [] outByte = CryptionControl.getInstance().encryptoECB(inByte, keyByte);
-        Log.e("xx", "msg=" + bytesToHexString(outByte));
-
-        try {
-            byte [] outByte2 = encrypt(inByte, keyByte);
-            Log.e("xx", "msg2=" + bytesToHexString(outByte2));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        String inStr = "1111111111111111";
+//        String keyStr = "1111111111111111";
+//
+//        byte [] inByte = hexStringToBytes(inStr);
+//        byte [] keyByte = hexStringToBytes(keyStr);
+//
+//        Log.e("xx", " inde=" + inByte.length + " key=" + keyByte.length);
+//
+//        byte [] outByte = CryptionControl.getInstance().encryptoECB(inByte, keyByte);
+//        Log.e("xx", "msg=" + bytesToHexString(outByte));
+//
+//        try {
+//            byte [] outByte2 = encrypt(inByte, keyByte);
+//            Log.e("xx", "msg2=" + bytesToHexString(outByte2));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
 
     }

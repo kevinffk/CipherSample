@@ -29,3 +29,5 @@ void KickDes(char MesOut[8],char MesIn[8]);             // 执行DES解密
 void SetKeyHex(char KeyIn[16]);
 void PlayDesHex(char MesOut[16],char MesIn[16]);
 void KickDesHex(char MesOut[16],char MesIn[16]);
+
+int hex2byte(char *dst, char *src); //hex字符串转字节流  无符号
