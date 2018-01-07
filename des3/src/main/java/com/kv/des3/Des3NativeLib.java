@@ -12,7 +12,9 @@ public class Des3NativeLib {
         System.loadLibrary("des3_native_lib");
     }
 
-    public static native String getEncodeDesHexStr(String source, String key);
+    public static native String getEncodeDesHexStr(String msgHex, String keyHex);
+
+    public static native String getDecodeDesHexStr(String codeHex, String keyHex);
 
     public static native void testByte(byte[] myBytes);
 }

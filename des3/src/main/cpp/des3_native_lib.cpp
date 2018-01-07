@@ -1,24 +1,10 @@
-#include <jni.h>
+#include "des3_native_lib.h"
 
-#include "des3_utils.h"
+#include "my_utils.h"
 
-#include <android/log.h>
-
-#include <string.h>
-
-#include <malloc.h>
-
-
-#define TAG "xx" // 这个是自定义的LOG的标识
-#define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG,TAG ,__VA_ARGS__) // 定义LOGD类型
-#define LOGI(...) __android_log_print(ANDROID_LOG_INFO,TAG ,__VA_ARGS__) // 定义LOGI类型
-#define LOGW(...) __android_log_print(ANDROID_LOG_WARN,TAG ,__VA_ARGS__) // 定义LOGW类型
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR,TAG ,__VA_ARGS__) // 定义LOGE类型
-#define LOGF(...) __android_log_print(ANDROID_LOG_FATAL,TAG ,__VA_ARGS__) // 定义LOGF类型
+#include "des.h"
 
 extern "C" {
-
-
 
 JNIEXPORT jstring JNICALL
 Java_com_kv_des3_Des3NativeLib_getEncodeDesHexStr__Ljava_lang_String_2Ljava_lang_String_2(
@@ -26,35 +12,29 @@ Java_com_kv_des3_Des3NativeLib_getEncodeDesHexStr__Ljava_lang_String_2Ljava_lang
     const char *source = env->GetStringUTFChars(source_, 0);
     const char *key = env->GetStringUTFChars(key_, 0);
 
-    char * inHex = (char *) malloc(16 * sizeof(char));
-    char * keyHex = (char *) malloc(16 * sizeof(char));
-    char * inArray = (char *) malloc(8 * sizeof(char));
-    char * keyArray = (char *) malloc(8 * sizeof(char));
-    char outArray[16];
+    char * inArray = (char *) malloc(9 * sizeof(char));
+    char * keyArray = (char *) malloc(9 * sizeof(char));
+    int * output = (int *)malloc(65 * sizeof(int));
+    char outHex[16];
 
-    //常量指针复制到数组
-    strcpy(inHex, source);
-    strcpy(keyHex, source);
+    hexStr2byte(inArray, source);
+    hexStr2byte(keyArray, key);
 
-    //hex string 转byte
-    hex2byte(inArray, inHex);
-    hex2byte(keyArray, keyHex);
+    DES_Efun(inArray,keyArray, output);
 
-    DesEncode(keyArray, inArray, outArray);
+    bit2HexStr(outHex, output, 64);
 
     //free
-    free(inHex);
-    free(keyHex);
     free(inArray);
     free(keyArray);
+    free(output);
 
     env -> ReleaseStringUTFChars(source_, source);
     env -> ReleaseStringUTFChars(key_, key);
 
-    return env -> NewStringUTF(outArray);
+    return env -> NewStringUTF(outHex);
 
 }
-
 
 
 JNIEXPORT void JNICALL
@@ -68,6 +48,34 @@ Java_com_kv_des3_Des3NativeLib_testByte(JNIEnv *env, jclass type, jbyteArray myB
     }
 
     env->ReleaseByteArrayElements(myBytes_, myBytes, 0);
+}
+
+JNIEXPORT jstring JNICALL
+Java_com_kv_des3_Des3NativeLib_getDecodeDesHexStr(JNIEnv *env, jclass type, jstring codeHex_, jstring keyHex_) {
+    const char *codeHex = env->GetStringUTFChars(codeHex_, 0);
+    const char *keyHex = env->GetStringUTFChars(keyHex_, 0);
+
+    int * codeBit = (int *) malloc(65 * sizeof(int));
+    char * keyArray = (char *) malloc(9 * sizeof(char));
+    char * outArray = (char *) malloc(9 * sizeof(char));
+    char outHex[16];
+
+    hexStr2Bit(codeBit, codeHex, 16);
+
+    hexStr2byte(keyArray, keyHex);
+
+    DES_Dfun(codeBit, keyArray, outArray);
+
+    byte2HexStr(outHex, outArray, 8);
+
+    env->ReleaseStringUTFChars(codeHex_, codeHex);
+    env->ReleaseStringUTFChars(keyHex_, keyHex);
+
+    free(codeBit);
+    free(keyArray);
+    free(outArray);
+
+    return env->NewStringUTF(outHex);
 }
 
 }

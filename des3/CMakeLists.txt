@@ -18,7 +18,8 @@ add_library( # Sets the name of the library.
 
              # Provides a relative path to your source file(s).
              src/main/cpp/des3_native_lib.cpp
-             src/main/cpp/des3_utils.cpp)
+             src/main/cpp/my_utils.cpp
+             src/main/cpp/des.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
