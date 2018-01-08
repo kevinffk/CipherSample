@@ -15,6 +15,4 @@ public class Des3NativeLib {
     public static native String getEncodeDesHexStr(String msgHex, String keyHex);
 
     public static native String getDecodeDesHexStr(String codeHex, String keyHex);
-
-    public static native void testByte(byte[] myBytes);
 }

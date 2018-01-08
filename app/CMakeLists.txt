@@ -18,8 +18,7 @@ add_library( # Sets the name of the library.
 
              # Provides a relative path to your source file(s).
              src/main/cpp/cipher_native_lib.cpp
-             src/main/cpp/md5.cpp
-             src/main/cpp/my_utils.cpp)
+             src/main/cpp/md5.cpp)
 
 
 add_library(des_lib
@@ -27,9 +26,12 @@ add_library(des_lib
 
 set_target_properties(des_lib
   PROPERTIES IMPORTED_LOCATION
-  ${CMAKE_SOURCE_DIR}/src/main/jniLibs/${ANDROID_ABI}/libdes3_native_lib.so)
+  ${CMAKE_SOURCE_DIR}/jniLibs/${ANDROID_ABI}/libdes3_native_lib.so)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+
+#配置加载native依赖
+include_directories( ${CMAKE_SOURCE_DIR}/jniLibs/include)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -50,7 +52,7 @@ find_library( # Sets the name of the path variable.
 
 target_link_libraries( # Specifies the target library.
                        cipher_native_lib
-                                              des_lib
+                       des_lib
                        # Links the target library to the log library
                        # included in the NDK.
                        ${log-lib} )

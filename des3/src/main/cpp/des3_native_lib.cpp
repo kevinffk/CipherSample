@@ -15,7 +15,7 @@ Java_com_kv_des3_Des3NativeLib_getEncodeDesHexStr__Ljava_lang_String_2Ljava_lang
     char * inArray = (char *) malloc(9 * sizeof(char));
     char * keyArray = (char *) malloc(9 * sizeof(char));
     int * output = (int *)malloc(65 * sizeof(int));
-    char outHex[16];
+    char outHex[17];
 
     hexStr2byte(inArray, source);
     hexStr2byte(keyArray, key);
@@ -36,19 +36,6 @@ Java_com_kv_des3_Des3NativeLib_getEncodeDesHexStr__Ljava_lang_String_2Ljava_lang
 
 }
 
-
-JNIEXPORT void JNICALL
-Java_com_kv_des3_Des3NativeLib_testByte(JNIEnv *env, jclass type, jbyteArray myBytes_) {
-    jbyte *myBytes = env->GetByteArrayElements(myBytes_, NULL);
-    jsize size = env->GetArrayLength(myBytes_);
-
-    LOGE("xx=%d",size);
-    for (int i = 0; i < size; i++) {
-        LOGE("xx=%d",myBytes[i]);
-    }
-
-    env->ReleaseByteArrayElements(myBytes_, myBytes, 0);
-}
 
 JNIEXPORT jstring JNICALL
 Java_com_kv_des3_Des3NativeLib_getDecodeDesHexStr(JNIEnv *env, jclass type, jstring codeHex_, jstring keyHex_) {

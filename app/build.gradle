@@ -11,10 +11,13 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         externalNativeBuild {
             cmake {
-                cppFlags "-frtti -fexceptions"
-                arguments '-DANDROID_PLATFORM=android-13',
+                arguments '-DANDROID_PLATFORM=android-19',
                         '-DANDROID_TOOLCHAIN=clang', '-DANDROID_STL=gnustl_static'
             }
+        }
+
+        ndk {
+            abiFilters 'x86_64', 'armeabi', 'armeabi-v7a'
         }
     }
     buildTypes {
@@ -29,9 +32,10 @@ android {
         }
     }
 
+// 设置so文件路径
     sourceSets {
         main {
-            jniLibs.srcDirs = ['../jniLibs']
+            jniLibs.srcDirs = ['jniLibs']
         }
     }
 }

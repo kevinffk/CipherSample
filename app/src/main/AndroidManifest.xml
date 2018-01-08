@@ -16,11 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service android:name=".SystemService"/>
-        <activity android:name=".TargetAct" android:launchMode="singleTask">
-        </activity>
     </application>
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 </manifest>

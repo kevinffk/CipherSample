@@ -40,6 +40,7 @@ void byte2HexStr(char * hexOut, char * byteIn, int byteLen) {
             hexOut[i] += 'a' - 10;
         }
     }
+    hexOut[i] = '\0';
 }
 
 /**
@@ -62,6 +63,7 @@ void bit2HexStr(char *hexOut, int *bitIn, int bitLen) {
             hexOut[i] = hexOut[i] % 16 + '0';//输出字符
         }
     }
+    hexOut[i] = '\0';
 }
 
 /**

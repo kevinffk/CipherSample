@@ -45,4 +45,7 @@ void MD5Transform(unsigned int state[4],unsigned char block[64]);
 void MD5Encode(unsigned char *output,unsigned int *input,unsigned int len);
 void MD5Decode(unsigned int *output,unsigned char *input,unsigned int len);
 
+void cryptMd5(const char *source, char * target, short targetLen, unsigned char zeroIsUpper);
+void ByteToHexStr(const unsigned char* source, char* dest, int sourceLen, int zeroIsUpper);
+
 #endif

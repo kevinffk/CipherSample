@@ -16,4 +16,8 @@ public class CipherNativeLib {
     public static native String cryptMd5By32(String source, boolean isUpper);
 
     public static native String cryptMd5By16(String source, boolean isUpper);
+
+    public static native String getEncodeDesHexStr(String msgHex, String keyHex);
+
+    public static native String getDecodeDesHexStr(String codeHex, String keyHex);
 }

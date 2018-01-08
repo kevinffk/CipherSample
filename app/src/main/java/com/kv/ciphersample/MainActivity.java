@@ -1,8 +1,8 @@
 package com.kv.ciphersample;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,15 +14,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView tv = (TextView) findViewById(R.id.sample_text);
-//        tv.setText(CipherNativeLib.cryptMd5By32("admin", true)
-//                + "\n"
-//                + CipherNativeLib.cryptMd5By32("admin", false)
-//                + "\n"
-//                + CipherNativeLib.cryptMd5By16("admin", true)
-//                + "\n"
-//                + CipherNativeLib.cryptMd5By16("admin", false));
 
-        startService(new Intent(getApplicationContext(), SystemService.class));
+        String cOutHexStr = CipherNativeLib.getEncodeDesHexStr("0102030405060708", "1111111111111111");
+        Log.e("xx", "c out=" + cOutHexStr);
+
+        String cMsgHexStr = CipherNativeLib.getDecodeDesHexStr("0102030405060708", "1111111111111111");
+        Log.e("xx", "d out=" + cMsgHexStr);
     }
 
 
