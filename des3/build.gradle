@@ -18,6 +18,10 @@ android {
                 cppFlags "-frtti -fexceptions"
             }
         }
+
+        ndk {
+            abiFilters 'x86_64', 'armeabi', 'armeabi-v7a'
+        }
     }
 
     buildTypes {
@@ -32,6 +36,7 @@ android {
             path 'CMakeLists.txt'
         }
     }
+
 }
 
 dependencies {
