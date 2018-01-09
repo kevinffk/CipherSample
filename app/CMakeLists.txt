@@ -21,14 +21,13 @@ add_library( # Sets the name of the library.
              src/main/cpp/md5.cpp)
 
 
-add_library(des_lib
-            SHARED IMPORTED)
+add_library(des_lib SHARED IMPORTED)
 
 set_target_properties(des_lib
   PROPERTIES IMPORTED_LOCATION
   ${CMAKE_SOURCE_DIR}/jniLibs/${ANDROID_ABI}/libdes3_native_lib.so)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
 
 #配置加载native依赖
 include_directories( ${CMAKE_SOURCE_DIR}/jniLibs/include)

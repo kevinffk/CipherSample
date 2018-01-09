@@ -1,1 +1,1 @@
-include ':app', ':des3'
+include ':app', ':des3', ':hash'

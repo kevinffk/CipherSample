@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/CipherSample.iml" filepath="$PROJECT_DIR$/CipherSample.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/des3/des3.iml" filepath="$PROJECT_DIR$/des3/des3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hash/hash.iml" filepath="$PROJECT_DIR$/hash/hash.iml" />
     </modules>
   </component>
 </project>
